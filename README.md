@@ -11,4 +11,4 @@
 ***
 
 ## UML Diagram
-![](resty-app/assets/lab26-uml.jpg)
+![](assets/lab26-uml.jpg)
