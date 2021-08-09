@@ -3,7 +3,7 @@
 ***
 ### [Deployment](https://youthful-shaw-a3c456.netlify.app/) 
 
-### [Pulls]https://github.com/En-ZUH/Resty/pulls) 
+### [Pulls](https://github.com/En-ZUH/Resty/pulls) 
 ***
 ## Running script : 
    * npm start
