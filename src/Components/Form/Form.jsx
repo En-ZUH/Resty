@@ -1,51 +1,63 @@
 import React from 'react';
+import { useState } from 'react';
 import './Form.scss';
 
-function Form(props) {
 
-  function handleSubmit(event) {
-    event.preventDefault();
+function Form({ handleApiCall }) {
+  const [URL, setURL] = useState('');
+  const [method, setMethod] = useState('GET');
+  const [textArea, setTextArea] = useState(false);
+
+  function handleGo(e) {
+    e.preventDefault();
     const formData = {
-      method: 'GET',
-      url: 'https://pokeapi.co/api/v2/pokemon',
+      method: method,
+      url: URL,
     };
-    props.handleApiCall(formData);
+    handleApiCall(formData);
+    console.log(formData)
   }
 
+  function getUrl(url) {
+    setURL(url)
+  }
+
+  function getMethod(e) {
+    e.target.className ? e.target.className = '' : e.target.className = 'active';
+
+    setMethod(e.target.id);
+    e.target.id === 'post' || e.target.id === 'put' ? setTextArea(true) : setTextArea(false)
+  }
 
   return (
-    < div className='App-form' >
-      <form onSubmit={handleSubmit}>
-        <label className='URL'>
-          <span>URL: </span>
-          <input name='url' type='url' id='url' />
-          <button type="submit">GO!</button>
-        </label>
+    <>
+      < div className='App-form' >
+        <form onSubmit={handleGo}>
+          <label className='URL'>
+            <span>URL: </span>
+            <input name='url' type='url' id='url' onChange={(e) => getUrl(e.target.value)} />
+            <button type="submit" data-testid="submitButton">GO!</button>
+          </label>
 
-        <label className="methods">
-          {/* <span id="get" type='radio' >GET</span>
+          <label className="methods">
 
-          <span id="post">POST</span>
+            <input type="radio" name="btn" id="get" onClick={getMethod} />
+            <label>GET</label> &nbsp; &nbsp;
 
-          <span id="put">PUT</span>
+            <input type="radio" name="btn" id="post" onClick={getMethod} />
+            <label>POST</label> &nbsp; &nbsp;
 
-          <span id="delete">DELETE</span> */}
+            <input type="radio" name="btn" id="put" onClick={getMethod} />
+            <label>PUT</label> &nbsp; &nbsp;
 
-          <input id="get" type="radio" />
-          <label>GET</label> &nbsp; &nbsp;
+            <input type="radio" name="btn" id="delete" onClick={getMethod} />
+            <label>DELETE</label> &nbsp; &nbsp;
 
-          <input id="post" type="radio" />
-          <label>POST</label> &nbsp; &nbsp;
-
-          <input id="put" type="radio" />
-          <label>PUT</label> &nbsp; &nbsp;
-
-          <input id="delete" type="radio" />
-          <label>DELETE</label> &nbsp; &nbsp;
-
-        </label>
-      </form>
-    </div>
+          </label>
+          {textArea && <textarea></textarea>}
+        </form>
+      </div>
+    </>
   );
 
 }

@@ -9,8 +9,9 @@ class Results extends React.Component {
     return (
 
       <React.Fragment>
-        <div className="result">
+        <div className="result" data-testid="results">
           <h2>Results :</h2>
+
           {this.props.data &&
             <>
               {/* <h2>Results :</h2> */}
