@@ -54,7 +54,7 @@ function Form({ handleApiCall }) {
             <label>DELETE</label> &nbsp; &nbsp;
 
           </label>
-          {textArea && <textarea></textarea>}
+          {textArea && <textarea cols='50' rows='4'></textarea>}
         </form>
       </div>
     </>
