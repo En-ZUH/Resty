@@ -17,7 +17,7 @@ class App extends React.Component {
     this.state = {
       data: null,
       requestParams: {},
-      load: false,
+      loading: false,
     }
   }
   callApi = (requestParams) => {
@@ -32,7 +32,7 @@ class App extends React.Component {
         { name: 'fake thing 2', url: 'http://fakethings.com/2' },
       ],
     };
-    this.setState({ data, requestParams, load: true });
+    this.setState({ data, requestParams, loading: true });
   }
 
   render() {
@@ -45,7 +45,7 @@ class App extends React.Component {
 
           <Form handleApiCall={this.callApi} />
 
-          {this.state.load && (
+          {this.state.loading && (
             <>
               <Results data={this.state.data} />
             </>
