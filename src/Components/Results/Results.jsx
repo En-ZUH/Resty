@@ -17,7 +17,7 @@ function Results(props) {
   setTimeout(() => {
     setLoading(false);
     setRender(true);
-  }, 1000);
+  }, 3000);
 
 
   console.log('prroooooops', props);
