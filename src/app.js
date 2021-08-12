@@ -1,65 +1,108 @@
-import React from 'react';
-
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './app.scss';
 
-// Let's talk about using index.js and some other name in the component folder
-// There's pros and cons for each way of doing this ...
+
 import Header from './Components/Header/Header';
 import Footer from './Components/Footer/Footer';
 import Form from './Components/Form/Form';
 import Results from './Components/Results/Results.jsx';
-// import Loading from './Components/Loading/Loading.jsx';
+import Loading from './Components/Loading/Loading.jsx';
 
-class App extends React.Component {
+function App() {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: null,
-      requestParams: {},
-      loading: false,
-      headers: null,
-      count: 'url',
-    };
+  const [data, setData] = useState(null);
+  const [requestParams, setrequestParams] = useState({});
+
+  // const [loading, setLoading] = useState(true);
+  const [render, setRender] = useState(false);
+
+  const [headers, setHeaders] = useState(null);
+  const [count, setCount] = useState('');
+
+
+  const [state, setState] = useState({ loading: false });
+
+
+
+  async function callApi(params) {
+    setrequestParams(params);
+    console.log(9999);
+    setState({ loading: true });
+    // const data = {
+    //   Headers: {
+    //     'content-type': 'string application/json',
+    //   },
+    //   count: 2,
+    //   results: [
+    //     { name: 'fake thing 1', url: 'http://fakethings.com/1' },
+    //     { name: 'fake thing 2', url: 'http://fakethings.com/2' },
+    //   ],
+    // };
   }
-  callApi = (formData, headers, requestedData) => {
-    //mock output
-    const data = {
-      Headers: {
-        'contenten-type': 'string application /json',
-      },
-      count: 2,
-      results: [
-        { name: 'fake thing 1', url: 'http://fakethings.com/1' },
-        { name: 'fake thing 2', url: 'http://fakethings.com/2' },
-      ],
-    };
-    this.setState({ data: requestedData, requestParams: formData, headers: headers, count: requestedData.count, loading: true });
 
-  };
+  useEffect(() => {
+    console.log(111)
+    test()
 
-  render() {
-    return (
-      <>
-        <React.Fragment>
-          <Header />
-          <div className='title'> <h3> &nbsp; &nbsp; &nbsp;Request Method:&nbsp; &nbsp;   {this.state.requestParams.method}</h3>
-            <h3> &nbsp; &nbsp; &nbsp; URL:&nbsp; &nbsp; {this.state.requestParams.url} </h3>   </div>
-
-          <Form handleApiCall={this.callApi} />
-
-          {this.state.loading && (
-            <>
-              <Results data={{ headers: this.state.headers, results: this.state.data, count: this.state.count }} />
-            </>
-          )}
+  }, [requestParams]);
 
 
-        </React.Fragment>
-        <Footer />
-      </>
-    );
+  async function test() {
+    console.log('here', requestParams)
+    try {
+      console.log('here2')
+      const data = await axios({
+        method: requestParams.method,
+        url: requestParams.url,
+      })
+      console.log('here3')
+
+      console.log('33', data);
+
+      setData(data.data)
+      setHeaders(data.headers);
+      setCount(data.data.count);
+
+      console.log(data.data.count)
+      // setLoading(false);
+      // setRender(true);
+
+      // setTimeout(() => {
+      //   setLoading(false);
+      //   setRender(true);
+      // }, 1000);
+
+    } catch (error) {
+      console.log(error.message)
+      setData(null)
+    }
   }
+
+
+
+  return (
+    <>
+      <React.Fragment>
+        <Header />
+        <div className='title'> <h3> &nbsp; &nbsp; &nbsp;Request Method:&nbsp; &nbsp;   {requestParams.method}</h3>
+          <h3> &nbsp; &nbsp; &nbsp; URL:&nbsp; &nbsp; {requestParams.url} </h3>   </div>
+
+        <Form handleApiCall={callApi} />
+
+        {state.loading && (
+          <>
+            <Results data={{ headers: headers, results: data, count: count }} />
+
+          </>
+        )}
+
+
+      </React.Fragment>
+      <Footer />
+    </>
+  );
 }
-
 export default App;
