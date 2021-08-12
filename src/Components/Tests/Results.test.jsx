@@ -15,5 +15,5 @@ it('must render result.......', () => {
     };
     render(<Result data={data} />);
     const items = screen.getByTestId('results');
-    expect(items).toHaveTextContent('Results :"root":{3 items"Headers":{1 item"content-type":string"string application/json"}"count":int2"results":[2 items0:{2 items"name":string"fake thing 1""url":string"http://fakethings.com/1"}1:{2 items"name":string"fake thing 2""url":string"http://fakethings.com/2"}]}');
+    expect(items).toHaveTextContent('Headers : ""root":{1 item"content-type":string"string application/json"} "Count : ""ERROR":{1 item"message":string"src property must be a valid json object"}"Results : ""root":[2 items0:{2 items"name":string"fake thing 1""url":string"http://fakethings.com/1"}1:{2 items"name":string"fake thing 2""url":string"http://fakethings.com/2');
 });

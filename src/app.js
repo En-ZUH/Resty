@@ -8,6 +8,7 @@ import Header from './Components/Header/Header';
 import Footer from './Components/Footer/Footer';
 import Form from './Components/Form/Form';
 import Results from './Components/Results/Results.jsx';
+// import Loading from './Components/Loading/Loading.jsx';
 
 class App extends React.Component {
 
@@ -16,6 +17,7 @@ class App extends React.Component {
     this.state = {
       data: null,
       requestParams: {},
+      load: false,
     }
   }
   callApi = (requestParams) => {
@@ -30,19 +32,29 @@ class App extends React.Component {
         { name: 'fake thing 2', url: 'http://fakethings.com/2' },
       ],
     };
-    this.setState({ data, requestParams });
+    this.setState({ data, requestParams, load: true });
   }
 
   render() {
     return (
-      <React.Fragment>
-        <Header />
-        <div>Request Method: {this.state.method}</div>
-        <div>URL: {this.state.url}</div>
-        <Form handleApiCall={this.callApi} />
-        <Results data={this.state.data} />
+      <>
+        <React.Fragment>
+          <Header />
+          <div className='title'> <h3> &nbsp; &nbsp; &nbsp;Request Method:&nbsp; &nbsp;   {this.state.requestParams.method}</h3>
+            <h3> &nbsp; &nbsp; &nbsp; URL:&nbsp; &nbsp; {this.state.requestParams.url} </h3>   </div>
+
+          <Form handleApiCall={this.callApi} />
+
+          {this.state.load && (
+            <>
+              <Results data={this.state.data} />
+            </>
+          )}
+
+
+        </React.Fragment>
         <Footer />
-      </React.Fragment>
+      </>
     );
   }
 }
