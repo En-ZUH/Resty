@@ -8,7 +8,8 @@ html, body {
 
 body {
   background: $backgroundColor;
-  height: 100%;
+  // overflow-y: hidden;
+
 
   #root {
     display: flex;
@@ -20,7 +21,8 @@ body {
     background: darken($backgroundColor, 50);
     border-top: 1px solid #eee;
     padding: 1em 3em;
-    margin: 0;
+    // margin-top:  100%;
+    
   }
 
   header {
@@ -30,11 +32,14 @@ body {
     padding: 0;
     margin: 0;
     text-align: center;
+
+    
+    opacity:100;  
   }
 }
 
 .title {
-  margin: 1.5rem 2rem 2rem 2rem;
+  margin: 7.9rem 2rem 2rem 2rem;
     border: 2px solid rgba(0, 0, 0, 0.329); 
     border-radius: .5rem;
     width: 40%;

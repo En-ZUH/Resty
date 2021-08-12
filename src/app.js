@@ -18,9 +18,11 @@ class App extends React.Component {
       data: null,
       requestParams: {},
       loading: false,
-    }
+      headers: null,
+      count: 'url',
+    };
   }
-  callApi = (requestParams) => {
+  callApi = (formData, headers, requestedData) => {
     //mock output
     const data = {
       Headers: {
@@ -32,8 +34,9 @@ class App extends React.Component {
         { name: 'fake thing 2', url: 'http://fakethings.com/2' },
       ],
     };
-    this.setState({ data, requestParams, loading: true });
-  }
+    this.setState({ data: requestedData, requestParams: formData, headers: headers, count: requestedData.count, loading: true });
+
+  };
 
   render() {
     return (
@@ -47,7 +50,7 @@ class App extends React.Component {
 
           {this.state.loading && (
             <>
-              <Results data={this.state.data} />
+              <Results data={{ headers: this.state.headers, results: this.state.data, count: this.state.count }} />
             </>
           )}
 

@@ -3,9 +3,9 @@ import './Header.scss';
 class Header extends React.Component {
   render() {
     return (
-      <header>
-        <h1>RESTy</h1>
-      </header>
+      <header >
+        < h2 > RESTy </h2>
+      </header >
     );
   }
 }
