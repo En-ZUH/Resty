@@ -13,32 +13,12 @@ function Form(props) {
   async function handleGo(e) {
     e.preventDefault();
 
-    // const data = await axios({
-    //   method: e.target.id,
-    //   url: URL,
-
-    // });
-    // console.log('dddddattttta', data);
     const formData = {
       method: method,
       url: URL,
 
-      // body: body,
     };
-    // const data = {
-    //   Headers: {
-    //     'content-type': 'string application/json',
-    //   },
-    //   count: 2,
-    //   results: [
-    //     { name: 'fake thing 1', url: 'http://fakethings.com/1' },
-    //     { name: 'fake thing 2', url: 'http://fakethings.com/2' },
-    //   ],
-    // };
 
-
-
-    //props.handleApiCall(data);
     props.handleApiCall(formData);
   }
 
