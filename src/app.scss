@@ -8,7 +8,7 @@ html, body {
 
 body {
   background: $backgroundColor;
-  // overflow-y: hidden;
+ 
 
 
   #root {
@@ -20,9 +20,7 @@ body {
   footer {
     background: darken($backgroundColor, 50);
     border-top: 1px solid #eee;
-    padding: 1em 3em;
-    // margin-top:  100%;
-    
+    padding: 1rem 1rem ; 
   }
 
   header {

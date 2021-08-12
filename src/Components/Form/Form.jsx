@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './Form.scss';
 import axios from 'axios';
 
-function Form({ handleApiCall }) {
+function Form(props) {
   const [URL, setURL] = useState('https://pokeapi.co/api/v2/pokemon');
   const [method, setMethod] = useState('GET');
   const [textArea, setTextArea] = useState(false);
@@ -13,18 +13,33 @@ function Form({ handleApiCall }) {
   async function handleGo(e) {
     e.preventDefault();
 
+    // const data = await axios({
+    //   method: e.target.id,
+    //   url: URL,
+
+    // });
+    // console.log('dddddattttta', data);
     const formData = {
       method: method,
       url: URL,
-    };
-    // handleApiCall(formData);
-    // console.log(formData);
-    const data = await axios({
-      method: e.target.value,
-      url: URL,
-    });
 
-    handleApiCall(formData, data.headers, data.data);
+      // body: body,
+    };
+    // const data = {
+    //   Headers: {
+    //     'content-type': 'string application/json',
+    //   },
+    //   count: 2,
+    //   results: [
+    //     { name: 'fake thing 1', url: 'http://fakethings.com/1' },
+    //     { name: 'fake thing 2', url: 'http://fakethings.com/2' },
+    //   ],
+    // };
+
+
+
+    //props.handleApiCall(data);
+    props.handleApiCall(formData);
   }
 
   function getUrl(url) {
