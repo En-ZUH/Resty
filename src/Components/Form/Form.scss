@@ -5,10 +5,12 @@ form {
   display: inline-block;
   margin: auto;
   width: 39%;
+  
 
   label {
     display: flex;
     margin: 0rem .1rem 1rem 0rem ;
+    
     button{
       margin-left: 1rem;
     }
@@ -18,6 +20,8 @@ form {
         margin-right: 1rem;
         padding: .25rem .5rem;
         background: #ccc;
+        
+    
 
         &:hover, &.active {
           background: #fff;
@@ -26,15 +30,43 @@ form {
     }
   }
 }
-.App-form {
+.App-form  {
+  
   margin: 4rem 0rem 0rem 30rem ;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+   font-weight: bolder ;
+  font-size : 1.3rem !important;
+
 }
 
 .URL {
   margin-top: 2rem !important;
+   
 }
+
+.Gobtn {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: bolder ;
+  font-size : 1.3rem !important;
+  color:rgba(218, 38, 218, 0.925);
+  border:none;
+  cursor: pointer;
+  
+}
+
 span{
   margin-right: 1rem  ;
+  
+}
+
+.urlStyle {
+   
+  border: 2px solid rgba(0, 0, 0, 0.329); 
+  border-radius: .5rem;
+  width: 70%;
+ height: 2rem;
+color: rgba(0, 0, 0, 0.788);
+ 
 }
  
  
