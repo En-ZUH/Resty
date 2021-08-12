@@ -1,16 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-//import ReactJson from 'react-json-view';
 import './Results.scss';
 import Loading from '../Loading/Loading';
 import 'react-json-pretty/themes/monikai.css';
 import JSONPretty from 'react-json-pretty';
 var JSONPrettyAcai = require('react-json-pretty/dist/acai');
 
-
-
 function Results(props) {
-
   const [loading, setLoading] = useState(true);
   const [render, setRender] = useState(false);
 
@@ -19,18 +15,13 @@ function Results(props) {
     setRender(true);
   }, 3000);
 
-
-  console.log('prroooooops', props);
+  console.log('props :::', props);
   return (
     <>
       {loading && <Loading />}
       {render && (
         <React.Fragment>
           <div data-testid="results">
-
-            {/* <h2>Results :</h2>
-              <ReactJson src={props.data} /> */}
-
             {props.data &&
               <div className="result">
                 <h4>  Headers :  </h4>
@@ -49,7 +40,5 @@ function Results(props) {
     </>
   );
 }
-
-
 
 export default Results;
