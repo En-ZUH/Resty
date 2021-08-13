@@ -1,15 +1,20 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import './app.scss';
-
-
-import Header from './Components/Header/Header';
-import Footer from './Components/Footer/Footer';
-import Form from './Components/Form/Form';
+import axios from 'axios';
+import Form from './Components/Form/Form.jsx';
+import Header from './Components/Header/Header.jsx';
+import Footer from './Components/Footer/Footer.jsx';
 import Results from './Components/Results/Results.jsx';
-import Loading from './Components/Loading/Loading.jsx';
+import History from './Components/History/History.jsx';
+import React, { useState, useEffect, useReducer } from 'react';
+
+const initialState = {
+  history: [],
+}
+
+
+
 
 function App() {
 
@@ -19,20 +24,44 @@ function App() {
   const [headers, setHeaders] = useState(null);
   const [count, setCount] = useState('');
   const [state, setState] = useState({ loading: false });
+  const [history, setHistory] = useState([]);
 
-  async function callApi(params) {
-    setrequestParams(params);
-    console.log(9999);
-    setState({ loading: true });
+  const [reduce, dispatch] = useReducer(historyReducer, initialState);
+
+
+
+  function historyReducer(state = history, action) {
+    const { type, payload } = action;
+    switch (type) {
+      case 'save':
+        const history = [...state.history, payload.history];
+        return { history };
+      default:
+        return state;
+    }
   }
 
+
+
+  function historyAction(history) {
+    return {
+      type: 'save',
+      payload: { history },
+    };
+  }
+
+
+
+  //________________________________________________________________________________________________
+
+
   useEffect(() => {
-    console.log(111)
     test()
   }, [requestParams]);
 
+
   async function test() {
-    console.log('requestParams', requestParams)
+    console.log('requestParams :::', requestParams)
 
     try {
       const data = await axios({
@@ -45,6 +74,8 @@ function App() {
       setData(data.data)
       setHeaders(data.headers);
       setCount(data.data.count);
+      dispatch(historyAction(requestParams));
+
 
       console.log(data.data.count)
 
@@ -54,12 +85,60 @@ function App() {
     }
   }
 
+  //________________________________________________________________________________________________
+
+  async function callApi(params) {
+
+    setState({ loading: true });
+
+    if (params.url) {
+      setrequestParams(params);
+      setHistory([...history, params]);
+      //  dispatch(historyAction(params));
+    }
+
+    else {
+      const defaultData = {
+        Headers: {
+          'content-type': 'string application/json- Default Data',
+        },
+        count: 'counts = 2',
+        results: [
+          { name: 'fake thing 1', url: 'http://fakethings.com/1' },
+          { name: 'fake thing 2', url: 'http://fakethings.com/2' },
+        ],
+      };
+
+      setData(defaultData);
+      setHeaders(defaultData.Headers);
+      setCount(defaultData.count);
+      setrequestParams(params);
+      dispatch(historyAction(params));
+    }
+  }
+
+  //________________________________________________________________________________________________
+
   return (
     <React.Fragment>
       <Header />
       <div className='title'> <h3> &nbsp; &nbsp; &nbsp;Request Method:&nbsp; &nbsp;{requestParams.method}</h3>
         <h3> &nbsp; &nbsp; &nbsp; URL:&nbsp; &nbsp; {requestParams.url} </h3>  </div>
+
+
+
+
+
       <Form handleApiCall={callApi} />
+
+
+
+
+      {/*  {state.history.length ? <History history={state.history} /> : null}*/}
+      <History history={history} />
+
+
+
 
       {state.loading && (
         <Results data={{ headers: headers, results: data, count: count }} />
