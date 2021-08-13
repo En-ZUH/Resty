@@ -4,7 +4,7 @@ import './Form.scss';
 import axios from 'axios';
 
 function Form(props) {
-  const [URL, setURL] = useState('https://pokeapi.co/api/v2/pokemon');
+  const [URL, setURL] = useState('');
   const [method, setMethod] = useState('GET');
   const [textArea, setTextArea] = useState(false);
   const [inputText, setInputText] = useState('');
@@ -28,6 +28,7 @@ function Form(props) {
 
   function handleInputText(e) {
     setInputText(e.target.value)
+
   }
 
 
@@ -45,6 +46,7 @@ function Form(props) {
           <label className='URL'>
             <span>URL: </span>
             <input className='urlStyle' name='url' type='url' id='url' onChange={(e) => getUrl(e.target.value)} />
+
             <button className='Gobtn' type="submit" data-testid="submitButton">GO!</button>
           </label>
 
